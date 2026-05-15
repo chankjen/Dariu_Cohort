@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watamu Marine Park — Visitor Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean: #005f73;
+    --lagoon: #0a9396;
+    --sand: #e9d8a6;
+    --coral: #ee9b00;
+    --deep: #001219;
+    --foam: #f4f9f9;
+    --danger: #ae2012;
+    --safe: #2d6a4f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--deep);
+    color: var(--foam);
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(160deg, #001f3f 0%, #005f73 50%, #0a9396 100%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3CradialGradient id='a' cx='50%25' cy='50%25' r='60%25'%3E%3Cstop offset='0' stop-color='%230a9396' stop-opacity='.15'/%3E%3Cstop offset='1' stop-color='%23001219' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23a)'/%3E%3C/svg%3E");
+    animation: shimmer 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes shimmer {
+    from { opacity: 0.4; transform: scale(1); }
+    to   { opacity: 1;   transform: scale(1.05); }
+  }
+
+  .wave-divider {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+  }
+
+  .hero-tag {
+    font-size: .75rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--sand);
+    opacity: .8;
+    margin-bottom: 1rem;
+    animation: fadeUp .8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    line-height: 1.1;
+    color: #fff;
+    animation: fadeUp .9s .1s ease both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--sand);
+  }
+
+  .hero-sub {
+    margin-top: 1.2rem;
+    font-size: 1rem;
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.7;
+    opacity: .85;
+    animation: fadeUp 1s .2s ease both;
+  }
+
+  .hero-sub span { color: var(--sand); font-weight: 600; }
+
+  .scroll-cta {
+    margin-top: 2.5rem;
+    animation: fadeUp 1s .4s ease both;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: .75rem 2rem;
+    border-radius: 50px;
+    font-size: .9rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-decoration: none;
+    transition: all .3s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--coral);
+    color: var(--deep);
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background: var(--sand);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(238,155,0,.4);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* GREETING PANEL */
+  .greeting {
+    background: linear-gradient(135deg, #013440, #01505f);
+    border-left: 4px solid var(--coral);
+    padding: 2rem;
+    margin: 2.5rem auto;
+    max-width: 800px;
+    border-radius: 0 12px 12px 0;
+    position: relative;
+  }
+
+  .greeting .lang-toggle {
+    display: flex;
+    gap: .5rem;
+    margin-bottom: 1rem;
+  }
+
+  .lang-btn {
+    padding: .3rem .9rem;
+    border-radius: 20px;
+    border: 1px solid var(--lagoon);
+    background: transparent;
+    color: var(--foam);
+    font-size: .8rem;
+    cursor: pointer;
+    transition: all .2s;
+  }
+
+  .lang-btn.active, .lang-btn:hover {
+    background: var(--lagoon);
+    border-color: var(--lagoon);
+  }
+
+  .greeting-text { line-height: 1.8; }
+  .greeting-text .sw { display: none; }
+  .greeting-text.sw-active .en { display: none; }
+  .greeting-text.sw-active .sw { display: block; }
+
+  .greeting h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--sand);
+    margin-bottom: .5rem;
+  }
+
+  /* MAIN CONTENT */
+  main { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+  /* SECTION HEADERS */
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3rem 0 1.5rem;
+  }
+
+  .section-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--ocean);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    border: 2px solid var(--lagoon);
+  }
+
+  .section-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--sand);
+  }
+
+  /* ACTIVITY CARDS */
+  .cards { display: grid; gap: 1rem; }
+
+  @media (min-width: 600px) { .cards { grid-template-columns: 1fr 1fr; } }
+
+  .card {
+    background: linear-gradient(145deg, #012a33, #014a59);
+    border: 1px solid rgba(10,147,150,.3);
+    border-radius: 12px;
+    padding: 1.4rem;
+    transition: transform .3s, box-shadow .3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,95,115,.5);
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at top right, rgba(10,147,150,.15), transparent 70%);
+  }
+
+  .card-emoji { font-size: 2rem; margin-bottom: .6rem; }
+  .card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--sand); margin-bottom: .4rem; }
+  .card p { font-size: .85rem; line-height: 1.6; opacity: .85; }
+  .card .sw-text { font-size: .8rem; font-style: italic; opacity: .7; margin-top: .5rem; color: var(--sand); }
+
+  /* RULES */
+  .rules-grid { display: grid; gap: .8rem; }
+
+  .rule {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border-radius: 10px;
+    font-size: .9rem;
+    line-height: 1.5;
+  }
+
+  .rule.forbidden {
+    background: rgba(174,32,18,.12);
+    border-left: 3px solid var(--danger);
+  }
+
+  .rule.allowed {
+    background: rgba(45,106,79,.12);
+    border-left: 3px solid var(--safe);
+  }
+
+  .rule .icon { font-size: 1.3rem; flex-shrink: 0; margin-top: .1rem; }
+  .rule .sw-text { font-size: .8rem; font-style: italic; opacity: .7; margin-top: .25rem; color: var(--sand); }
+
+  /* FEES TABLE */
+  .fees-wrap {
+    background: linear-gradient(145deg, #012a33, #014a59);
+    border: 1px solid rgba(10,147,150,.3);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-top: 1rem;
+  }
+
+  .season-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(10,147,150,.3);
+  }
+
+  .s-tab {
+    flex: 1;
+    padding: .9rem;
+    text-align: center;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+    border: none;
+    background: transparent;
+    color: var(--foam);
+    opacity: .6;
+  }
+
+  .s-tab.active {
+    background: rgba(10,147,150,.2);
+    opacity: 1;
+    color: var(--sand);
+    border-bottom: 2px solid var(--coral);
+  }
+
+  .fees-content { padding: 1.2rem; }
+  .fees-content.hidden { display: none; }
+
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  th { text-align: left; padding: .5rem .8rem; color: var(--coral); font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+  td { padding: .5rem .8rem; border-bottom: 1px solid rgba(10,147,150,.15); }
+  tr:last-child td { border-bottom: none; }
+  .amount { font-weight: 700; color: var(--sand); }
+
+  /* CONTACTS */
+  .contact-box {
+    background: linear-gradient(135deg, #013440, #01505f);
+    border: 1px solid var(--lagoon);
+    border-radius: 14px;
+    padding: 1.5rem 1.8rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .contact-info p { font-size: .88rem; margin-bottom: .4rem; }
+  .contact-info a { color: var(--sand); text-decoration: none; font-weight: 600; }
+  .contact-info a:hover { color: var(--coral); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    font-size: .8rem;
+    opacity: .5;
+    border-top: 1px solid rgba(10,147,150,.2);
+  }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    padding: .2rem .7rem;
+    border-radius: 20px;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+  }
+
+  .badge-law { background: rgba(174,32,18,.2); color: #ff6b6b; border: 1px solid rgba(174,32,18,.4); }
+  .badge-tip { background: rgba(45,106,79,.2); color: #74c69d; border: 1px solid rgba(45,106,79,.4); }
+
+  /* VISITOR GUIDE CHAT STYLE FLOW */
+  .guide-flow {
+    background: linear-gradient(145deg, #012a33, #014a59);
+    border: 1px solid rgba(10,147,150,.3);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .guide-step {
+    display: flex;
+    gap: 1rem;
+    padding: .9rem 0;
+    border-bottom: 1px solid rgba(10,147,150,.12);
+  }
+
+  .guide-step:last-child { border-bottom: none; }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--lagoon);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: .15rem;
+  }
+
+  .step-body h4 { font-size: .95rem; color: var(--sand); margin-bottom: .2rem; }
+  .step-body p { font-size: .85rem; opacity: .85; line-height: 1.5; }
+  .step-body em { color: var(--coral); font-style: normal; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">🌊 Kenya Wildlife Service — Official Visitor Guide</div>
+  <h1>Watamu <em>Marine</em><br>Protected Area</h1>
+  <p class="hero-sub">
+    A <span>UNESCO World Biosphere Reserve</span> — 120 km north of Mombasa.<br>
+    Home to Kenya's Marine Big Five. Established 1968.
+  </p>
+  <div class="scroll-cta">
+    <a href="#guide" class="btn btn-primary">Explore the Guide ↓</a>
+  </div>
+  <div class="wave-divider">
+    <svg viewBox="0 0 1200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:60px;display:block;">
+      <path d="M0,40 C200,80 400,0 600,40 C800,80 1000,0 1200,40 L1200,80 L0,80 Z" fill="#001219"/>
+    </svg>
+  </div>
+</section>
+
+<main id="guide">
+
+  <!-- GREETING -->
+  <div class="greeting">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en', this)">English</button>
+      <button class="lang-btn" onclick="setLang('sw', this)">Kiswahili</button>
+    </div>
+    <div class="greeting-text" id="greetText">
+      <div class="en">
+        <h3>🤝 Karibu Sana — A Warm Mijikenda Welcome</h3>
+        <p>We extend our deepest respects first to our elders — <em>Mzee wa pwani, tunakushukuru kwa ulinzi wa bahari hii.</em><br>
+        To all visitors: you are warmly welcome to one of East Africa's greatest marine treasures. Our goal is your joy and the ocean's health — both depend on each other. Please read this guide before entering the water.</p>
+      </div>
+      <div class="sw" style="display:none">
+        <h3>🤝 Karibu Sana — Salamu za Kimijikenda</h3>
+        <p>Tunatoa heshima zetu kwanza kwa wazee wetu — <em>Mzee wa pwani, tunakushukuru kwa ulinzi wa bahari hii.</em><br>
+        Kwa wageni wote: karibuni katika hazina moja ya baharini ya Afrika Mashariki. Lengo letu ni furaha yako na afya ya bahari — vyote vinategemea kila kimoja. Tafadhali soma mwongozo huu kabla ya kuingia majini.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIVITIES -->
+  <div class="section-head">
+    <div class="section-icon">🤿</div>
+    <h2>Allowed Activities</h2>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-emoji">🚤</div>
+      <h3>Glass Bottom Boat</h3>
+      <p>Explore coral gardens without getting wet. Only KWS-licensed boats with safety equipment permitted.</p>
+      <p class="sw-text">Boti ya chini ya kioo — mashua zilizoidhinishwa na KWS tu.</p>
+    </div>
+    <div class="card">
+      <div class="card-emoji">🤿</div>
+      <h3>Snorkelling & Diving</h3>
+      <p>Allowed in the No-Take Zone. Must be conducted responsibly — no coral contact, no disturbing marine life.</p>
+      <p class="sw-text">Kuruhusiwa katika Eneo la Kutogusa — usiguse matumbawe.</p>
+    </div>
+    <div class="card">
+      <div class="card-emoji">🐬</div>
+      <h3>Dolphin & Whale Watching</h3>
+      <p>Dolphin watching best Oct–April. Humpback whale migration is seasonal. Observe from a safe distance.</p>
+      <p class="sw-text">Kutazama pomboo na nyangumi — angalia kwa umbali salama.</p>
+    </div>
+    <div class="card">
+      <div class="card-emoji">🐦</div>
+      <h3>Bird Watching at Mida Creek</h3>
+      <p>Over 200 bird species. Explore by dhow at sunset for flamingos and juvenile sea turtles.</p>
+      <p class="sw-text">Ndege 200+ katika Mida Creek — tembea kwa mashua ya jadi.</p>
+    </div>
+    <div class="card">
+      <div class="card-emoji">🎣</div>
+      <h3>Sport Fishing</h3>
+      <p>Permitted in the Reserve zone only (not the National Park). Legal gear only — no trawling, no ring nets.</p>
+      <p class="sw-text">Uvuvi wa burudani — katika Hifadhi tu, sio Mbuga ya Taifa.</p>
+    </div>
+    <div class="card">
+      <div class="card-emoji">🏖️</div>
+      <h3>Beach Recreation</h3>
+      <p>Swimming, sunbathing, and beach walks are welcome. No dogs on beach — wildlife protection rule.</p>
+      <p class="sw-text">Ogelea, pumzika ufukoni — hakuna mbwa kwenye pwani.</p>
+    </div>
+  </div>
+
+  <!-- RULES -->
+  <div class="section-head">
+    <div class="section-icon">⚖️</div>
+    <h2>Conservation Rules — Marine Law</h2>
+  </div>
+  <p style="font-size:.85rem;opacity:.75;margin-bottom:1rem;">Enforced under the Kenya Wildlife Service Act. Violations attract fines and prosecution.</p>
+
+  <div class="rules-grid">
+    <div class="rule forbidden">
+      <span class="icon">🚫</span>
+      <div>
+        <span class="badge badge-law">Prohibited</span>
+        <p><strong>Do NOT touch, stand on, or break coral</strong> — even dead coral is habitat. Irresponsible snorkelling is reported and monitored by KWS rangers.</p>
+        <p class="sw-text">Usiguse, usisimame juu, wala kuvunja matumbawe — hata matumbawe yaliyokufa ni makazi ya samaki.</p>
+      </div>
+    </div>
+    <div class="rule forbidden">
+      <span class="icon">🐚</span>
+      <div>
+        <span class="badge badge-law">Prohibited</span>
+        <p><strong>Do NOT collect shells, sand, or marine specimens.</strong> Removing any natural object from the park is illegal under Kenyan law.</p>
+        <p class="sw-text">Usiokote makombe, mchanga, au viumbe vya baharini — ni kinyume cha sheria ya Kenya.</p>
+      </div>
+    </div>
+    <div class="rule forbidden">
+      <span class="icon">🐟</span>
+      <div>
+        <span class="badge badge-law">Prohibited</span>
+        <p><strong>Do NOT feed wild fish or marine animals.</strong> Feeding disrupts natural behavior and damages the reef ecosystem.</p>
+        <p class="sw-text">Usiliishe samaki wa porini — kulisha kunasumbua tabia ya asili na kudhuru mfumo wa ikolojia.</p>
+      </div>
+    </div>
+    <div class="rule allowed">
+      <span class="icon">✅</span>
+      <div>
+        <span class="badge badge-tip">Sustainable Alternative</span>
+        <p><strong>Instead of collecting shells — photograph them!</strong> Our local guides offer underwater photography tours. Your photos preserve memories without harming the reef.</p>
+        <p class="sw-text">Badala ya kuokota makombe — piga picha! Mwongozo wetu wa ndani anaweza kukusaidia.</p>
+      </div>
+    </div>
+    <div class="rule allowed">
+      <span class="icon">📸</span>
+      <div>
+        <span class="badge badge-tip">Sustainable Alternative</span>
+        <p><strong>For the best fish experience — book a guided snorkel tour.</strong> Certified local guides ensure safe, legal, unforgettable reef encounters.</p>
+        <p class="sw-text">Kwa uzoefu bora wa samaki — panga ziara ya kuogelea na mwongozo aliyeidhinishwa.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISITOR GUIDE FLOW -->
+  <div class="section-head">
+    <div class="section-icon">🗺️</div>
+    <h2>Your Visit — Step by Step</h2>
+  </div>
+
+  <div class="guide-flow">
+    <div class="guide-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Greet & Enter</h4>
+        <p>Pay entry fees at the KWS gate. Carry ID. Residents show proof. <em>Salimiana na wasimamizi wa KWS.</em></p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Hire a Licensed Boat</h4>
+        <p>All marine access requires a KPA-licensed, KWS-approved boat with life jackets. <em>Panga mashua iliyoidhinishwa — usalama kwanza.</em></p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Choose Your Zone</h4>
+        <p>National Park (No-Take) = snorkel/dive only. Marine Reserve = fishing permitted. <em>Chagua eneo sahihi kwa shughuli yako.</em></p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Look, Don't Touch</h4>
+        <p>Admire coral, turtles, and fish without contact. Leave only bubbles, take only memories. <em>Tazama tu — usiguse kitu chochote.</em></p>
+      </div>
+    </div>
+    <div class="guide-step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>Support Local Economy</h4>
+        <p>Buy crafts from certified Watamu artisans. Eat at local restaurants. Book local guides. <em>Saidia uchumi wa jamii yetu ya pwani.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEES -->
+  <div class="section-head">
+    <div class="section-icon">🎟️</div>
+    <h2>Entry Fees (KWS Official)</h2>
+  </div>
+
+  <div class="fees-wrap">
+    <div class="season-tabs">
+      <button class="s-tab active" onclick="showSeason('high', this)">🌞 High Season (July–Feb)</button>
+      <button class="s-tab" onclick="showSeason('low', this)">🌧️ Low Season (Mar–June)</button>
+    </div>
+    <div class="fees-content" id="high">
+      <table>
+        <thead><tr><th>Visitor Category</th><th>Adult</th><th>Child/Student</th></tr></thead>
+        <tbody>
+          <tr><td>🇰🇪 EAC Citizen / Resident</td><td class="amount">Ksh 300</td><td class="amount">Ksh 150</td></tr>
+          <tr><td>🌍 Rest of Africa</td><td class="amount">USD 15</td><td class="amount">USD 5</td></tr>
+          <tr><td>🌐 International</td><td class="amount">USD 25</td><td class="amount">USD 10</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fees-content hidden" id="low">
+      <table>
+        <thead><tr><th>Visitor Category</th><th>Adult</th><th>Child/Student</th></tr></thead>
+        <tbody>
+          <tr><td>🇰🇪 EAC Citizen / Resident</td><td class="amount">Ksh 200</td><td class="amount">Ksh 150</td></tr>
+          <tr><td>🌍 Rest of Africa</td><td class="amount">USD 15</td><td class="amount">USD 8</td></tr>
+          <tr><td>🌐 International</td><td class="amount">USD 20</td><td class="amount">USD 10</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p style="font-size:.78rem;opacity:.6;margin-top:.6rem;text-align:center;">Source: KWS Official Rates via twendesasa.com · Fees subject to change — verify at gate.</p>
+
+  <!-- CONTACTS -->
+  <div class="section-head">
+    <div class="section-icon">📞</div>
+    <h2>Contact KWS Watamu</h2>
+  </div>
+
+  <div class="contact-box">
+    <div class="contact-info">
+      <p>📞 <a href="tel:+254202335459">+254 20 2335459</a></p>
+      <p>📱 <a href="tel:+254735789779">+254 735 789 779</a></p>
+      <p>📱 <a href="tel:+254735786129">+254 735 786 129</a></p>
+      <p>✉️ <a href="mailto:watamumarinepark@kws.go.ke">watamumarinepark@kws.go.ke</a></p>
+    </div>
+    <div>
+      <a href="https://ajkenyasafaris.com/things-todo/watamu-marine-national-park/" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:.82rem;">Visit kws.org →</a>
+    </div>
+  </div>
+
+  <!-- MARINE BIG FIVE -->
+  <div class="section-head">
+    <div class="section-icon">🐋</div>
+    <h2>Kenya's Marine Big Five</h2>
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="card-emoji">🐋</div><h3>Humpback Whale</h3><p>Seasonal migration. Part of the famous "Twin Migration" alongside the wildebeest.</p></div>
+    <div class="card"><div class="card-emoji">🐬</div><h3>Dolphin</h3><p>Best Oct–April. Spinner and bottlenose species frequent the bay.</p></div>
+    <div class="card"><div class="card-emoji">🐢</div><h3>Sea Turtle</h3><p>Green and hawksbill turtles nest here. Protected under CITES and Kenyan law.</p></div>
+    <div class="card"><div class="card-emoji">🦈</div><h3>Shark</h3><p>Several elasmobranch species including whale sharks. Do not chase or corner.</p></div>
+    <div class="card"><div class="card-emoji">🐟</div><h3>Manta Ray</h3><p>Gentle giants of the reef. Observe from a respectful distance — no touching.</p></div>
+  </div>
+
+</main>
+
+<footer>
+  <p>🌊 Watamu Marine Protected Area — Kenya Wildlife Service &nbsp;|&nbsp; Management Plan 2016–2026</p>
+  <p style="margin-top:.4rem">This guide is for visitor information only. Always follow instructions from KWS rangers on site.</p>
+  <p style="margin-top:.4rem;font-size:.72rem">Heshima kwa bahari — heshima kwa jamii yetu &nbsp;·&nbsp; Respect the ocean — respect our community</p>
+</footer>
+
+<script>
+  function setLang(lang, btn) {
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const gt = document.getElementById('greetText');
+    if (lang === 'sw') gt.classList.add('sw-active');
+    else gt.classList.remove('sw-active');
+  }
+
+  function showSeason(season, btn) {
+    document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('high').classList.add('hidden');
+    document.getElementById('low').classList.add('hidden');
+    document.getElementById(season).classList.remove('hidden');
+  }
+</script>
+</body>
+</html>
